@@ -1,0 +1,24 @@
+public void onLeftClick() {
+		
+		ItemStack cookie = new ItemStack(Material.COOKIE, countItemsOfType(Material.COOKIE));
+		if (getItemInMainHand().equals(cookie)) {
+			
+			setItemInMainHand(new ItemStack(Material.COOKIE, countItemsOfType(Material.COOKIE) - 1));
+			int projectileIdx = ( int ) Math.round(Math.random() * 10) + 1;
+			if (projectileIdx < 10) {
+				
+				throwProjectile(ProjectileType.SNOWBALL);
+				
+			}
+			
+			else {
+				
+				throwProjectile(ProjectileType.WITHER_SKULL);
+				
+			 }
+			
+			
+		}
+		
+	
+	}
