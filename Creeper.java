@@ -12,7 +12,7 @@ import com.codekingdoms.nozzle.utils.Random;
 /* What this means is that we make a new
    Creeper based on the normal Creeper
    kinda like making a Chocolate Chip Cookie
-   by starting with a Plain Cookie   */
+   by starting with a Plain Cookie     */
 
 public class Creeper extends BaseCreeper {
 	
@@ -29,10 +29,11 @@ public class Creeper extends BaseCreeper {
 	
 	/* *
 	   * When hit by the player target them and fire fireballs at them
-	   *   */
+	   *     */
 	
 	public void onDamaged( double damage ) {
 		
+		applyPotionEffect(PotionEffectType.POISON);
 		throwProjectile(ProjectileType.LARGE_FIREBALL);
 		specialMove();
 	
@@ -47,34 +48,23 @@ public class Creeper extends BaseCreeper {
 	
 	}
 	
-	/**
-	 * Every time the Creeper is damaged 
-	 * It shoots a fireball
-	 * To have it go on a rampage, enable the poison potion 
-	 * which allows the creeper to continuously fire while it is 
-	 * being damaged by fireballs and remove the poison after three seconds
-	 * and recharge the health for a future attack
 	public void specialMove() {
 		
-		setTimeout(
+		if (getHealth() < 20) {
 			
-			() -> {
-				
-				applyPotionEffect(PotionEffectType.POISON);
-				
-			}
+			setHealth(1000);
+			removePotionEffect(PotionEffectType.POISON);
 			
-			
-		, 2);
-		removePotionEffect(PotionEffectType.POISON);
-		resetMaxHealth();
+		}
+		
 	
 	}
 	
-	public void onDeath() {//Eternal Life
+	public void onDeath() {
 		
 		Creeper legacy = new Creeper();
-		legacy.spawn(world, this.getLocation());
+		legacy.spawn(world, getLocation());
+	
 	}
 	
 	
